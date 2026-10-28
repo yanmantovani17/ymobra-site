@@ -23,89 +23,101 @@
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
 body{margin:0;background:var(--papel);color:var(--tinta);font:400 1.0625rem/1.6 var(--corpo);-webkit-font-smoothing:antialiased}
-img{max-width:100%;display:block}
+img,video{max-width:100%;display:block}
+img{height:auto}
 a{color:inherit}
 a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--ouro);outline-offset:3px;border-radius:4px}
-.miolo{width:min(1120px,100% - 32px);margin-inline:auto}
+.miolo{width:min(1160px,100% - 32px);margin-inline:auto}
 h1,h2,h3{font-family:var(--cond);line-height:1.02;margin:0;letter-spacing:-.005em;text-wrap:balance}
-h2{font-size:clamp(2.1rem,4.6vw,3.3rem);font-weight:700}
-h3{font-size:1.55rem;font-weight:700}
+h2{font-size:clamp(2.2rem,4.8vw,3.5rem);font-weight:700}
+h3{font-size:1.6rem;font-weight:700}
 p{margin:0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:0 24px;border-radius:6px;font:600 1.02rem/1 var(--corpo);text-decoration:none;border:2px solid transparent;cursor:pointer;white-space:nowrap;transition:background .2s,border-color .2s}
+.btn-ouro{background:var(--ouro);color:var(--navy)}
+.btn-ouro:hover{background:var(--ouro-claro)}
+.btn-vidro{border-color:rgba(255,255,255,.45);color:#fff;background:rgba(255,255,255,.06);backdrop-filter:blur(4px)}
+.btn-vidro:hover{border-color:#fff}
+.btn-navy{background:var(--navy);color:#fff}
+.btn-navy:hover{background:var(--navy-2)}
 
 /* topo */
-.topo{position:sticky;top:0;z-index:10;background:var(--navy);color:#fff;border-bottom:1px solid rgba(255,255,255,.08)}
-.topo .miolo{display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px}
-.marca{display:flex;align-items:center;gap:10px;text-decoration:none;font:800 1.5rem/1 var(--cond);letter-spacing:.06em}
-.marca img{width:34px;height:34px;object-fit:contain}
+.topo{position:fixed;inset:0 0 auto;z-index:20;color:#fff;transition:background .25s}
+.topo.solido{background:rgba(6,18,31,.94);backdrop-filter:blur(8px);box-shadow:0 1px 0 rgba(255,255,255,.06)}
+.topo .miolo{display:flex;align-items:center;justify-content:space-between;height:72px;gap:16px}
+.marca{display:flex;align-items:center;gap:10px;text-decoration:none;font:800 1.55rem/1 var(--cond);letter-spacing:.06em}
+.marca img{width:36px;height:36px;object-fit:contain}
 .nav{display:flex;align-items:center;gap:26px;font-weight:500;font-size:.98rem}
 .nav a{text-decoration:none;opacity:.85}
 .nav a:hover{opacity:1}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 22px;border-radius:6px;font:600 1.02rem/1 var(--corpo);text-decoration:none;border:2px solid transparent;cursor:pointer}
-.btn-ouro{background:var(--ouro);color:var(--navy)}
-.btn-ouro:hover{background:var(--ouro-claro)}
-.btn-linha{border-color:rgba(255,255,255,.35);color:#fff}
-.btn-linha:hover{border-color:#fff}
-.nav .btn{min-height:40px;padding:0 16px;opacity:1}
-@media (max-width:820px){.nav a:not(.btn){display:none}}
+.nav .btn{min-height:42px;padding:0 16px;opacity:1}
+@media (max-width:860px){.nav a:not(.btn){display:none}}
 
-/* hero */
-.hero{background:var(--navy);color:#fff;position:relative;overflow:hidden}
-.hero::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:48px 48px;mask-image:linear-gradient(180deg,#000 30%,transparent)}
-.hero .miolo{position:relative;display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center;padding:72px 0 0}
-.hero h1{font-size:clamp(3rem,7.6vw,6rem);font-weight:800;text-transform:none}
-.hero h1 .linha2{display:block;color:var(--ouro)}
-.hero .lead{margin-top:22px;font-size:1.2rem;max-width:34em;color:#c9d3e3}
+/* hero com vídeo */
+.hero{position:relative;color:#fff;overflow:hidden;background:var(--noite)}
+.hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(6,18,31,.92) 0%,rgba(11,31,58,.78) 45%,rgba(11,31,58,.45) 100%),linear-gradient(0deg,rgba(6,18,31,.9),transparent 35%)}
+.hero .miolo{position:relative;z-index:1;display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:end;padding-top:130px}
+.hero .texto{padding-bottom:96px}
+.hero .selo{display:inline-flex;align-items:center;gap:10px;font-size:.92rem;color:#f0dfa6;border:1px solid rgba(201,162,39,.5);padding:7px 14px;border-radius:999px;margin-bottom:24px;background:rgba(6,18,31,.35)}
+.hero .selo::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--ouro);box-shadow:0 0 0 4px rgba(201,162,39,.25)}
+.hero h1{font-size:clamp(3rem,7.4vw,6rem);font-weight:800}
+.hero h1 span{display:block;color:var(--ouro)}
+.hero .lead{margin-top:22px;font-size:1.2rem;max-width:34em;color:#d0d9e7}
 .hero .acoes{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
-.hero .nota{margin-top:14px;font-size:.92rem;color:#8fa0bb}
-.hero .texto{padding-bottom:72px}
+.hero .nota{margin-top:14px;font-size:.92rem;color:#9fb0c9}
+.celular{justify-self:center;width:300px;background:#02070f;border-radius:40px 40px 0 0;padding:12px 12px 0;border:1px solid #23395a;border-bottom:0;box-shadow:0 -20px 80px rgba(201,162,39,.22)}
+.celular img{border-radius:30px 30px 0 0;width:100%;aspect-ratio:390/700;object-fit:cover;object-position:top}
+@media (prefers-reduced-motion:reduce){.hero video{display:none}.hero{background:var(--noite) url("https://assets.mixkit.co/videos/23170/23170-thumb-720-0.jpg") center/cover}}
+@media (max-width:880px){.hero .miolo{grid-template-columns:1fr;padding-top:110px}.hero .texto{padding-bottom:8px}.celular{width:260px}}
 
-/* celular */
-.celular{justify-self:center;width:300px;align-self:end;background:#02070f;border-radius:38px 38px 0 0;padding:12px 12px 0;box-shadow:0 -10px 60px rgba(201,162,39,.18);border:1px solid #1c2f4d;border-bottom:0}
-.tela{background:#f4f6f9;border-radius:28px 28px 0 0;overflow:hidden;color:var(--navy);font-size:.8rem}
-.tela-topo{background:var(--navy);color:#fff;padding:18px 16px 14px}
-.tela-topo b{font:700 1.15rem/1 var(--cond);letter-spacing:.02em}
-.tela-topo span{display:block;color:#9fb0c9;font-size:.74rem;margin-top:4px}
-.tela-corpo{padding:12px;display:grid;gap:10px}
-.bloco{background:#fff;border:1px solid #dde3ec;border-radius:10px;padding:10px 12px}
-.bloco h4{margin:0 0 6px;font:700 .95rem/1 var(--cond);letter-spacing:.02em}
-.clima{display:grid;grid-template-columns:1fr 1fr;gap:6px}
-.clima div{background:#eef2f7;border-radius:6px;padding:6px 8px}
-.clima small{display:block;color:#6b7891;font-size:.66rem}
-.efetivo{display:flex;justify-content:space-between;border-bottom:1px dashed #e2e7ef;padding:4px 0}
-.efetivo:last-child{border:0}
-.foto{height:74px;border-radius:8px;background:linear-gradient(135deg,#8a96a8,#c4ccd8);position:relative}
-.foto::after{content:"28/10/2026 08:41 · -23.55, -46.63";position:absolute;left:6px;bottom:5px;font-size:.6rem;color:#fff;background:rgba(0,0,0,.45);padding:2px 5px;border-radius:3px}
-.assinado{display:flex;align-items:center;gap:8px;color:#2f7d4f;font-weight:600}
-.assinado::before{content:"";width:16px;height:16px;border-radius:50%;background:#2f7d4f url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.5l2.5 2.5L12 5.5' stroke='white' stroke-width='2' fill='none'/%3E%3C/svg%3E")}
-.abas{display:flex;justify-content:space-around;background:#fff;border-top:1px solid #dde3ec;padding:8px 0 12px;font-size:.62rem;color:#6b7891}
-.abas b{color:var(--navy)}
-@media (max-width:880px){.hero .miolo{grid-template-columns:1fr;padding-top:48px}.hero .texto{padding-bottom:8px}.celular{width:270px}}
+/* números do produto */
+.fatos{background:var(--navy);color:#fff;border-top:1px solid rgba(255,255,255,.08)}
+.fatos .miolo{display:grid;grid-template-columns:repeat(4,1fr)}
+.fato{padding:30px 22px;border-left:1px solid rgba(255,255,255,.1)}
+.fato:first-child{border-left:0;padding-left:0}
+.fato strong{display:block;font:800 clamp(2.4rem,4vw,3.4rem)/1 var(--cond);color:var(--ouro)}
+.fato span{display:block;margin-top:6px;color:#c9d3e3;font-size:.98rem;line-height:1.4}
+@media (max-width:820px){.fatos .miolo{grid-template-columns:1fr 1fr}.fato,.fato:first-child{border-left:0;padding-left:0;border-top:1px solid rgba(255,255,255,.1)}.fato:nth-child(-n+2){border-top:0}}
 
-/* faixa troca */
+/* troca */
 .troca{background:var(--branco);border-bottom:1px solid var(--linha)}
-.troca .miolo{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.troca .miolo{display:grid;grid-template-columns:repeat(4,1fr)}
 .troca div{padding:26px 20px;border-left:1px solid var(--linha)}
 .troca div:first-child{border-left:0;padding-left:0}
 .troca s{color:#8b95a7;text-decoration-thickness:2px}
 .troca strong{display:block;font:700 1.35rem/1.1 var(--cond);margin-top:2px}
-@media (max-width:820px){.troca .miolo{grid-template-columns:1fr 1fr}.troca div{border-left:0;padding-left:0;border-top:1px solid var(--linha)}.troca div:nth-child(-n+2){border-top:0}}
+@media (max-width:820px){.troca .miolo{grid-template-columns:1fr 1fr}.troca div,.troca div:first-child{border-left:0;padding-left:0;border-top:1px solid var(--linha)}.troca div:nth-child(-n+2){border-top:0}}
 
-section{padding:96px 0}
-.intro{max-width:40em;margin-bottom:48px}
+section{padding:100px 0}
+.intro{max-width:42em;margin-bottom:56px}
 .intro p{margin-top:16px;color:var(--suave);font-size:1.15rem}
 
-/* modulos */
-.modulos{display:grid;grid-template-columns:repeat(6,1fr);gap:20px}
-.mod{background:var(--branco);border:1px solid var(--linha);border-radius:12px;padding:28px;display:flex;flex-direction:column;gap:12px;grid-column:span 2}
-.mod.grande{grid-column:span 3;background:var(--navy);color:#fff;border-color:var(--navy)}
-.mod.grande p{color:#c9d3e3}
-.mod.grande li::marker{color:var(--ouro)}
-.mod .sigla{font:800 2.6rem/1 var(--cond);color:var(--ouro);letter-spacing:.02em}
-.mod p{color:var(--suave)}
-.mod ul{margin:4px 0 0;padding-left:18px;display:grid;gap:4px;font-size:.98rem}
-@media (max-width:880px){.modulos{grid-template-columns:1fr}.mod,.mod.grande{grid-column:auto}}
+/* módulos alternados com telas reais */
+.modulo{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;padding:56px 0;border-top:1px solid var(--linha)}
+.modulo:first-of-type{border-top:0;padding-top:0}
+.modulo:nth-of-type(even) .tela{order:-1}
+.modulo .sigla{font:800 1rem/1 var(--cond);letter-spacing:.12em;color:var(--ouro);background:var(--navy);padding:7px 10px;border-radius:4px;display:inline-block;margin-bottom:16px}
+.modulo p{color:var(--suave);margin-top:14px;font-size:1.08rem;max-width:32em}
+.modulo ul{margin:20px 0 0;padding:0;list-style:none;display:grid;gap:10px}
+.modulo li{padding-left:26px;position:relative}
+.modulo li::before{content:"";position:absolute;left:0;top:.35em;width:16px;height:16px;border-radius:50%;background:var(--ouro) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.5l2.5 2.5L12 5.5' stroke='%230b1f3a' stroke-width='2' fill='none'/%3E%3C/svg%3E") center/12px no-repeat}
+.tela{justify-self:center;position:relative}
+.tela .aparelho{width:290px;background:#02070f;border-radius:38px;padding:11px;box-shadow:0 40px 80px -30px rgba(11,31,58,.55)}
+.tela .aparelho img{border-radius:28px;width:100%;aspect-ratio:390/844;object-fit:cover;object-position:top}
+.tela::before{content:"";position:absolute;inset:12% -14% 12% -14%;background:radial-gradient(closest-side,rgba(201,162,39,.22),transparent);z-index:-1}
+@media (max-width:880px){.modulo{grid-template-columns:1fr;gap:36px}.modulo:nth-of-type(even) .tela{order:0}.tela .aparelho{width:250px}}
+
+/* relatório PDF */
+.pdf{background:var(--navy);color:#fff;overflow:hidden}
+.pdf .miolo{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.pdf p{color:#c9d3e3;margin-top:16px;font-size:1.1rem}
+.pdf .folha{background:#fff;border-radius:6px;box-shadow:0 30px 70px -20px rgba(0,0,0,.6);transform:rotate(-2.5deg);max-height:520px;overflow:hidden}
+.pdf .folha img{width:100%}
+.pdf ul{margin:22px 0 0;padding:0;list-style:none;display:grid;gap:10px;color:#dfe6f0}
+.pdf li{padding-left:24px;position:relative}
+.pdf li::before{content:"";position:absolute;left:0;top:.55em;width:10px;height:10px;background:var(--ouro);border-radius:2px}
+@media (max-width:880px){.pdf .miolo{grid-template-columns:1fr;gap:40px}}
 
 /* como funciona */
 .passos{background:var(--branco);border-block:1px solid var(--linha)}
@@ -118,11 +130,11 @@ section{padding:96px 0}
 /* planos */
 .planos{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;align-items:stretch}
 .plano{background:var(--branco);border:1px solid var(--linha);border-radius:12px;padding:24px 20px;display:flex;flex-direction:column;gap:14px}
-.plano.destaque{border:2px solid var(--ouro);position:relative}
+.plano.destaque{border:2px solid var(--ouro);position:relative;box-shadow:0 24px 50px -30px rgba(11,31,58,.5)}
 .plano.destaque .selo{position:absolute;top:-13px;left:20px;background:var(--ouro);color:var(--navy);font:700 .82rem/1 var(--corpo);padding:6px 10px;border-radius:4px}
 .plano h3{font-size:1.5rem}
 .plano .para{color:var(--suave);font-size:.93rem;min-height:3em}
-.preco{font:800 2.4rem/1 var(--cond)}
+.preco{font:800 clamp(2rem,2.6vw,2.4rem)/1 var(--cond);white-space:nowrap}
 .preco small{font:500 .95rem var(--corpo);color:var(--suave)}
 .plano ul{list-style:none;margin:0;padding:0;display:grid;gap:7px;font-size:.95rem;flex:1}
 .plano li{padding-left:22px;position:relative}
@@ -135,15 +147,17 @@ section{padding:96px 0}
 @media (max-width:560px){.planos{grid-template-columns:1fr}}
 
 /* autor */
-.autor{background:var(--navy);color:#fff}
-.autor .miolo{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:center}
-.autor blockquote{margin:0;font:600 clamp(1.8rem,3.6vw,2.6rem)/1.12 var(--cond)}
+.autor{position:relative;color:#fff;overflow:hidden;background:var(--noite)}
+.autor video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.3}
+.autor .miolo{position:relative;display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:center}
+.autor blockquote{margin:0;font:700 clamp(2rem,3.8vw,2.9rem)/1.1 var(--cond)}
 .autor p{color:#c9d3e3;margin-top:14px}
 .autor .assina{margin-top:22px;color:var(--ouro);font-weight:600}
+.autor .assina a{color:inherit}
 @media (max-width:820px){.autor .miolo{grid-template-columns:1fr;gap:24px}}
 
 /* faq */
-.faq{max-width:780px}
+.faq{max-width:800px}
 details{border-bottom:1px solid var(--linha);padding:18px 0}
 summary{cursor:pointer;font:700 1.3rem/1.2 var(--cond);list-style:none;display:flex;justify-content:space-between;gap:16px}
 summary::-webkit-details-marker{display:none}
@@ -152,21 +166,23 @@ details[open] summary::after{content:"–"}
 details p{margin-top:10px;color:var(--suave)}
 
 /* cta */
-.cta{background:var(--ouro);color:var(--navy);padding:80px 0}
+.cta{background:var(--ouro);color:var(--navy);padding:84px 0}
 .cta .miolo{display:flex;justify-content:space-between;align-items:center;gap:32px;flex-wrap:wrap}
 .cta h2{max-width:14em}
 .cta .btn{background:var(--navy);color:#fff}
 .cta .btn:hover{background:var(--navy-2)}
 .cta .btn-sec{background:transparent;color:var(--navy);border-color:var(--navy)}
+.cta .btn-sec:hover{background:rgba(11,31,58,.08)}
 
 footer{background:var(--noite);color:#8fa0bb;padding:40px 0;font-size:.93rem}
 footer .miolo{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
 footer a{color:#c9d3e3}
+.creditos{font-size:.78rem;color:#62728c;margin-top:6px}
 </style>
 </head>
 <body>
 
-<header class="topo">
+<header class="topo" id="topo">
   <div class="miolo">
     <a class="marca" href="#"><img src="marca.png" alt="">YMOBRA</a>
     <nav class="nav" aria-label="Principal">
@@ -181,42 +197,37 @@ footer a{color:#c9d3e3}
 
 <main>
 <section class="hero" style="padding:0">
+  <video autoplay muted loop playsinline preload="metadata" poster="https://assets.mixkit.co/videos/23170/23170-thumb-720-0.jpg" aria-hidden="true">
+    <source src="https://assets.mixkit.co/videos/23170/23170-720.mp4" type="video/mp4">
+  </video>
   <div class="miolo">
     <div class="texto">
-      <h1>A obra registrada no dia, <span class="linha2">não no fim do mês.</span></h1>
+      <span class="selo">Feito por engenheiro civil, testado em obra</span>
+      <h1>A obra registrada no dia, <span>não no fim do mês.</span></h1>
       <p class="lead">RDO, FVS, controle de EPI e ferramentas, checklist de segurança e pedido de material num só aplicativo. O encarregado preenche no celular, com foto, local e assinatura. O escritório recebe pronto.</p>
       <div class="acoes">
         <a class="btn btn-ouro" href="#planos">Testar 7 dias grátis</a>
-        <a class="btn btn-linha" href="#modulos">Ver os módulos</a>
+        <a class="btn btn-vidro" href="#modulos">Ver o app por dentro</a>
       </div>
       <p class="nota">Sem cartão para testar. Funciona no Android, iPhone e computador.</p>
     </div>
-
-    <div class="celular" aria-hidden="true">
-      <div class="tela">
-        <div class="tela-topo"><b>RDO · Qui, 28 out</b><span>Residencial Jardim Cajamar · Torre B</span></div>
-        <div class="tela-corpo">
-          <div class="bloco"><h4>Clima</h4>
-            <div class="clima"><div><small>Manhã</small>Sol · praticável</div><div><small>Tarde</small>Nublado · praticável</div></div>
-          </div>
-          <div class="bloco"><h4>Efetivo · 23</h4>
-            <div class="efetivo"><span>Pedreiro</span><b>8</b></div>
-            <div class="efetivo"><span>Servente</span><b>11</b></div>
-            <div class="efetivo"><span>Armador</span><b>4</b></div>
-          </div>
-          <div class="bloco"><h4>Fotos</h4><div class="foto"></div></div>
-          <div class="bloco"><span class="assinado">Assinado pelo engenheiro às 17:42</span></div>
-        </div>
-        <div class="abas"><span>Início</span><b>RDO</b><span>FVS</span><span>EPI</span><span>Checklist</span><span>Material</span></div>
-      </div>
-    </div>
+    <div class="celular"><img src="telas/rdo.webp" alt="Tela do RDO no YMOBRA com clima da manhã, tarde e noite" width="390" height="700"></div>
   </div>
 </section>
+
+<div class="fatos">
+  <div class="miolo">
+    <div class="fato"><strong>5</strong><span>módulos num só app: RDO, FVS, EPI, checklist e material</span></div>
+    <div class="fato"><strong>1</strong><span>banco de dados exclusivo por empresa, sem mistura</span></div>
+    <div class="fato"><strong>7 dias</strong><span>de teste grátis, sem cartão de crédito</span></div>
+    <div class="fato"><strong>PDF</strong><span>com o seu logo e o do cliente em cada relatório</span></div>
+  </div>
+</div>
 
 <div class="troca">
   <div class="miolo">
     <div><s>Caderno de obra</s><strong>RDO com foto e assinatura</strong></div>
-    <div><s>FVS em papel</s><strong>Inspeção com pendências</strong></div>
+    <div><s>FVS em papel</s><strong>Inspeção com reparo e reinspeção</strong></div>
     <div><s>Ficha de EPI</s><strong>Entrega assinada no celular</strong></div>
     <div><s>Pedido no WhatsApp</s><strong>Material com aprovação</strong></div>
   </div>
@@ -225,38 +236,74 @@ footer a{color:#c9d3e3}
 <section id="modulos">
   <div class="miolo">
     <div class="intro">
-      <h2>Cinco rotinas do canteiro, um lugar só</h2>
-      <p>Cada módulo segue o jeito que a obra já trabalha. Você contrata o que precisa e libera o resto quando quiser.</p>
+      <h2>O app por dentro</h2>
+      <p>Telas reais do YMOBRA. Cada módulo segue o jeito que a obra já trabalha, e você contrata só o que precisa.</p>
     </div>
-    <div class="modulos">
-      <article class="mod grande">
+
+    <article class="modulo">
+      <div>
         <span class="sigla">RDO</span>
-        <h3>Diário de obra</h3>
-        <p>Clima, efetivo próprio e de terceiros, equipamentos, serviços, ocorrências e fotos com data, hora e localização gravadas na imagem.</p>
-        <ul><li>Texto revisado por IA em linguagem técnica</li><li>PDF com o seu logo e o do cliente</li><li>Assinatura do responsável na tela</li></ul>
-      </article>
-      <article class="mod grande">
+        <h3>Diário de obra em poucos toques</h3>
+        <p>Clima por período, efetivo próprio e de terceiros, equipamentos, serviços, ocorrências e fotos com data, hora e localização gravadas na imagem.</p>
+        <ul><li>Texto revisado por IA em linguagem técnica</li><li>Envio para aprovação do engenheiro</li><li>Link para o contratante acompanhar</li></ul>
+      </div>
+      <div class="tela"><div class="aparelho"><img loading="lazy" src="telas/historico.webp" alt="Histórico de RDOs aguardando aprovação e aprovados" width="390" height="844"></div></div>
+    </article>
+
+    <article class="modulo">
+      <div>
         <span class="sigla">FVS</span>
-        <h3>Verificação de serviço</h3>
-        <p>Modelos de inspeção por serviço, foto em cada etapa, reprovação com reparo e reinspeção até fechar.</p>
-        <ul><li>Fotos identificadas pela etapa verificada</li><li>Histórico por pavimento e unidade</li><li>Relatório pronto para auditoria</li></ul>
-      </article>
-      <article class="mod">
+        <h3>Verificação de serviço com reparo</h3>
+        <p>Modelos de inspeção por serviço, critério e tolerância em cada item. Reprovou, o app abre o reparo com responsável e prazo e cobra a reinspeção.</p>
+        <ul><li>Foto de cada etapa identificada na legenda</li><li>Assinatura do responsável na tela</li><li>Dossiê de qualidade e liberação para medição</li></ul>
+      </div>
+      <div class="tela"><div class="aparelho"><img loading="lazy" src="telas/fvs.webp" alt="FVS com item reprovado, reparo e segunda verificação" width="390" height="844"></div></div>
+    </article>
+
+    <article class="modulo">
+      <div>
         <span class="sigla">EPI</span>
-        <h3>EPI e ferramentas</h3>
-        <p>Entrega, troca e devolução por colaborador, com assinatura e validade de CA. Ferramentas com quem está, desde quando.</p>
-      </article>
-      <article class="mod">
-        <span class="sigla">CK</span>
-        <h3>Checklist</h3>
-        <p>Checklists de segurança e qualidade com plano de ação, responsável e prazo para cada não conformidade.</p>
-      </article>
-      <article class="mod">
-        <span class="sigla">MAT</span>
-        <h3>Material</h3>
-        <p>Pedido do canteiro, aprovação do engenheiro e acompanhamento até a entrega, sem perder nada no WhatsApp.</p>
-      </article>
+        <h3>EPI e ferramentas com assinatura</h3>
+        <p>Entrega, troca e devolução por colaborador, com assinatura no celular e histórico por pessoa. Ferramentas com quem está e desde quando.</p>
+        <ul><li>Alerta de kit incompleto</li><li>Estoque mínimo e pedido automático</li><li>Ficha de EPI pronta para fiscalização</li></ul>
+      </div>
+      <div class="tela"><div class="aparelho"><img loading="lazy" src="telas/epi.webp" alt="Entrega de EPI com assinatura do colaborador e do responsável" width="390" height="844"></div></div>
+    </article>
+
+    <article class="modulo">
+      <div>
+        <span class="sigla">CHECKLIST</span>
+        <h3>Inspeção de segurança com plano de ação</h3>
+        <p>Checklists de segurança e qualidade. Cada não conformidade vira uma ação com responsável e prazo, acompanhada até fechar.</p>
+        <ul><li>Itens críticos destacados</li><li>Agenda de inspeções da obra</li><li>Relatório com fotos e observações</li></ul>
+      </div>
+      <div class="tela"><div class="aparelho"><img loading="lazy" src="telas/checklist.webp" alt="Checklist de segurança com item não conforme e plano de ação" width="390" height="844"></div></div>
+    </article>
+
+    <article class="modulo">
+      <div>
+        <span class="sigla">MATERIAL</span>
+        <h3>Pedido de material sem perder nada</h3>
+        <p>O canteiro pede, o engenheiro aprova, o comprador cota e a obra confere no recebimento. Tudo registrado, nada perdido no WhatsApp.</p>
+        <ul><li>Catálogo de materiais da empresa</li><li>Valor estimado por requisição</li><li>Etapas: aprovar, comprar e receber</li></ul>
+      </div>
+      <div class="tela"><div class="aparelho"><img loading="lazy" src="telas/material.webp" alt="Requisição de material aprovada com itens e valor estimado" width="390" height="844"></div></div>
+    </article>
+  </div>
+</section>
+
+<section class="pdf">
+  <div class="miolo">
+    <div>
+      <h2>Relatório pronto para mandar ao cliente</h2>
+      <p>Cada RDO, FVS, ficha de EPI e checklist sai em PDF padronizado, com número, data, assinatura e o logo da sua empresa e do cliente.</p>
+      <ul>
+        <li>Relatório mensal consolidado em um clique</li>
+        <li>Planilha do mês para medição</li>
+        <li>Código de verificação em cada documento</li>
+      </ul>
     </div>
+    <div class="folha"><img loading="lazy" src="telas/rdo-pdf.webp" alt="Exemplo de Relatório Diário de Obra em PDF gerado pelo YMOBRA" width="900" height="1123"></div>
   </div>
 </section>
 
@@ -315,11 +362,14 @@ footer a{color:#c9d3e3}
 </section>
 
 <section class="autor">
+  <video autoplay muted loop playsinline preload="none" poster="https://assets.mixkit.co/videos/25480/25480-thumb-720-0.jpg" aria-hidden="true">
+    <source src="https://assets.mixkit.co/videos/25480/25480-360.mp4" type="video/mp4">
+  </video>
   <div class="miolo">
     <blockquote>Feito por quem preenche RDO de verdade, não por quem só ouviu falar.</blockquote>
     <div>
       <p>O YMOBRA nasceu dentro da Mantovany Engenharia, depois de anos perdendo informação em caderno, planilha e grupo de WhatsApp. Cada tela foi pensada para o canteiro: botões grandes, leitura no sol e fotos leves para sinal fraco.</p>
-      <p class="assina">Yan Mantovani, engenheiro civil e fundador</p>
+      <p class="assina">Yan Mantovani, engenheiro civil, fundador · <a href="https://mantovany.com.br">Mantovany Engenharia</a></p>
     </div>
   </div>
 </section>
@@ -349,9 +399,18 @@ footer a{color:#c9d3e3}
 
 <footer>
   <div class="miolo">
-    <span>© 2026 YMOBRA · um produto <a href="https://mantovany.com.br">Mantovany Engenharia</a></span>
+    <div>
+      <span>© 2026 YMOBRA · um produto <a href="https://mantovany.com.br">Mantovany Engenharia</a></span>
+      <p class="creditos">Vídeos: Mixkit. Telas: dados de demonstração.</p>
+    </div>
     <span><a href="https://ymobra.pages.dev/termos.html">Termos de uso</a> · <a href="mailto:contato@mantovanyengenharia.com">contato@mantovanyengenharia.com</a></span>
   </div>
 </footer>
+
+<script>
+  const topo = document.getElementById('topo');
+  const ajustar = () => topo.classList.toggle('solido', scrollY > 40);
+  addEventListener('scroll', ajustar, { passive: true }); ajustar();
+</script>
 </body>
 </html>
