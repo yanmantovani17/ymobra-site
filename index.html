@@ -345,34 +345,34 @@ a.logo-parceiro:hover{border-color:var(--ouro,#c9a227);transform:translateY(-2px
     <div class="planos">
       <article class="plano">
         <h3>RDO</h3><p class="para">Só o diário de obra, para quem quer começar simples.</p>
-        <div class="preco">R$ 97<small>/mês</small></div>
+        <div class="preco">R$ 160<small>/mês</small></div>
         <ul><li>Módulo RDO</li><li>1 obra</li><li>2 usuários</li><li>Ajuda por vídeos, sem suporte</li></ul>
         <a class="btn" href="https://app.ymobra.com.br/?criar=1&plano=rdo">Começar teste</a>
       </article>
       <article class="plano">
         <h3>EPI e Ferramentas</h3><p class="para">Controle de entregas para o almoxarifado e a segurança.</p>
-        <div class="preco">R$ 197<small>/mês</small></div>
+        <div class="preco">R$ 307<small>/mês</small></div>
         <ul><li>Módulo EPI e ferramentas</li><li>1 obra</li><li>3 usuários</li><li>Até 100 colaboradores</li></ul>
         <a class="btn" href="https://app.ymobra.com.br/?criar=1&plano=epi">Começar teste</a>
       </article>
       <article class="plano">
         <h3>Básico</h3><p class="para">Todos os módulos para a construtora com poucas obras.</p>
-        <div class="preco">R$ 297<small>/mês</small></div>
+        <div class="preco">R$ 1.633<small>/mês</small></div>
         <ul><li>Os 5 módulos</li><li>2 obras</li><li>5 usuários</li><li>Até 50 colaboradores</li></ul>
         <a class="btn" href="https://app.ymobra.com.br/?criar=1&plano=basico">Começar teste</a>
       </article>
       <article class="plano destaque">
         <span class="selo">Recomendado</span>
         <h3>Profissional</h3><p class="para">Para quem toca várias obras ao mesmo tempo.</p>
-        <div class="preco">R$ 597<small>/mês</small></div>
+        <div class="preco">R$ 3.267<small>/mês</small></div>
         <ul><li>Os 5 módulos</li><li>4 obras</li><li>10 usuários</li><li>Até 150 colaboradores</li></ul>
         <a class="btn" href="https://app.ymobra.com.br/?criar=1&plano=profissional">Começar teste</a>
       </article>
       <article class="plano">
         <h3>Empresa</h3><p class="para">Operação grande, com equipe de campo extensa.</p>
-        <div class="preco">R$ 1.197<small>/mês</small></div>
-        <ul><li>Os 5 módulos</li><li>10 obras</li><li>25 usuários</li><li>Até 400 colaboradores</li></ul>
-        <a class="btn" href="https://app.ymobra.com.br/?criar=1&plano=empresa">Começar teste</a>
+        <div class="preco">Sob consulta</div>
+        <ul><li>Os 5 módulos</li><li>Mais de 4 obras</li><li>Usuários e colaboradores sob medida</li><li>Implantação acompanhada</li></ul>
+        <a class="btn" href="https://wa.me/5511978667370?text=Ol%C3%A1!%20Quero%20um%20or%C3%A7amento%20do%20plano%20Empresa%20do%20YMOBRA.">Solicitar orçamento</a>
       </article>
     </div>
     <p class="obs-planos">Precisa de mais colaboradores no controle de EPI? Some pacotes de +50 por R$ 79/mês, direto no app.</p>
@@ -456,6 +456,24 @@ a.logo-parceiro:hover{border-color:var(--ouro,#c9a227);transform:translateY(-2px
     f.innerHTML = '🎁 Você foi indicado por um cliente YMOBRA: <b>10% de desconto na 1ª mensalidade</b>. Ver planos →';
     document.body.appendChild(f);
   })();
+</script>
+<script>
+  // Contador de acessos sem cookie (só números por dia, sem IP nem identificação): vai para a Central do YMOBRA
+  (() => { try {
+    const C = 'https://ymobra-central.comercial-cf9.workers.dev/v1/acesso';
+    const q = new URLSearchParams(location.search);
+    const enviar = (e) => navigator.sendBeacon && navigator.sendBeacon(C, JSON.stringify({ e, p: location.pathname, r: document.referrer, u: q.get('utm_source') || '' }));
+    let nova = true; try { nova = !sessionStorage.getItem('acesso'); sessionStorage.setItem('acesso', '1'); } catch (x) {}
+    if (nova) enviar('entrada');
+    enviar('visita');
+    document.addEventListener('click', (ev) => {
+      const a = ev.target.closest && ev.target.closest('a'); if (!a) return;
+      const h = a.href || '', m = h.match(/[?&]plano=([a-z]+)/);
+      const alvo = m ? 'plano-' + m[1] : /or%C3%A7amento/.test(h) ? 'orcamento-empresa' : /wa\.me|whatsapp/.test(h) ? 'whatsapp' : h.startsWith('tel:') ? 'telefone' : h.startsWith('mailto:') ? 'email'
+        : /app\.ymobra\.com\.br\/?$/.test(h) ? 'entrar' : /ymobra\.com\.br/.test(h) && !location.hostname.includes('ymobra') ? 'ymobra' : /instagram\.com/.test(h) ? 'instagram' : '';
+      if (alvo) enviar('clique:' + alvo);
+    });
+  } catch (x) {} })();
 </script>
 </body>
 </html>
