@@ -302,19 +302,21 @@ import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.j
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 
 const ETAPAS = [
-  { fundo: 'etapa1', tela: 'telas/rdo.webp', mod: 'RDO', t: 'A estrutura sobe. <span>O diário acompanha.</span>', p: 'Clima, efetivo, equipamentos e fotos com data, hora e local. O RDO do dia sai em minutos.', curto: 'Estrutura' },
-  { fundo: 'etapa2', tela: 'telas/fvs.webp', mod: 'FVS', t: 'Cada parede <span>verificada.</span>', p: 'Critério e tolerância por item. O que não passou vira reparo e volta para reinspeção.', curto: 'Alvenaria' },
-  { fundo: 'etapa3', tela: 'telas/epi.webp', mod: 'EPI e ferramentas', t: 'Equipamento entregue <span>e assinado.</span>', p: 'Capacete, botina e ferramenta com a assinatura do colaborador no celular.', curto: 'EPI' },
-  { fundo: 'etapa4', tela: 'telas/checklist.webp', mod: 'Checklist', t: 'Segurança <span>item por item.</span>', p: 'Andaime, guarda-corpo e tela conferidos com foto e plano de ação.', curto: 'Segurança' },
-  { fundo: 'etapa5', tela: 'telas/material.webp', mod: 'Material', t: 'O pedido sai. <span>O material chega.</span>', p: 'O encarregado pede, o engenheiro aprova e o fornecedor entrega. Sem pedido perdido no WhatsApp.', curto: 'Material' },
-  { fundo: 'etapa6', tela: 'telas/historico.webp', mod: 'Entrega', t: 'Obra entregue, <span>tudo registrado.</span>', p: 'Relatórios em PDF com o seu logo, histórico completo e link para o cliente acompanhar.', curto: 'Entrega', cta: true },
+  { fundo: 'cena0', tela: 'telas/abertura.webp', mod: 'YMOBRA', t: 'Sua obra inteira <span>cabe no bolso.</span>', p: 'Acompanhe um dia de obra com o YMOBRA. Role para ver.', curto: 'Início' },
+  { fundo: 'cena1', tela: 'telas/rdo.webp', mod: 'RDO · 07:00', t: 'Diário de obra <span>em poucos toques.</span>', p: 'Clima, efetivo, equipamentos e fotos com data, hora e local.', curto: 'RDO' },
+  { fundo: 'cena2', tela: 'telas/fvs.webp', mod: 'FVS · 10:00', t: 'Cada parede <span>verificada.</span>', p: 'Critério e tolerância por item, com reparo e reinspeção.', curto: 'FVS' },
+  { fundo: 'cena3', tela: 'telas/epi.webp', mod: 'EPI · 11:30', t: 'Entrega assinada <span>no celular.</span>', p: 'Capacete, botina e ferramenta com a assinatura do colaborador.', curto: 'EPI' },
+  { fundo: 'cena4', tela: 'telas/checklist.webp', mod: 'Checklist · 14:00', t: 'Segurança <span>item por item.</span>', p: 'Andaime e guarda-corpo conferidos com foto e plano de ação.', curto: 'Checklist' },
+  { fundo: 'cena5', tela: 'telas/material.webp', mod: 'Material · 15:30', t: 'O pedido sai. <span>O material chega.</span>', p: 'O encarregado pede, o engenheiro aprova. Sem pedido perdido no WhatsApp.', curto: 'Material' },
+  { fundo: 'cena6', tela: 'telas/historico.webp', mod: 'Aprovação · 18:00', t: 'Relatório pronto <span>para o cliente.</span>', p: 'O engenheiro aprova e o PDF sai com o seu logo e o do cliente.', curto: 'Relatório' },
+  { fundo: 'cena7', tela: 'telas/abertura.webp', mod: 'Todas as obras', t: 'Uma empresa. Todas as obras. <span>Um app.</span>', p: 'Cada obra com o seu histórico, num banco de dados exclusivo da sua empresa.', curto: 'Alcance', cta: true },
 ];
 const sec = document.getElementById('na-obra'), N = ETAPAS.length; sec.style.setProperty('--n', N);
 const fundos = sec.querySelector('.fundos'), etapa = sec.querySelector('.etapa'), ol = sec.querySelector('.lado ol');
 ETAPAS.forEach((e, i) => {
   const f = document.createElement('div'); f.className = 'fundo'; f.dataset.src = `obra/${e.fundo}.webp`; fundos.appendChild(f); e.f = f;
   const d = document.createElement('div');
-  d.innerHTML = `<div class="num">0${i + 1}</div><span class="modulo">${e.mod}</span><h2>${e.t}</h2><p>${e.p}</p>` + (e.cta ? '<div class="acoes"><a class="btn btn-ouro" href="#planos">Testar 7 dias grátis</a><a class="btn btn-vidro" href="#modulos">Ver o app por dentro</a></div>' : '');
+  d.innerHTML = `<div class="num">0${i}</div><span class="modulo">${e.mod}</span><h2>${e.t}</h2><p>${e.p}</p>` + (e.cta ? '<div class="acoes"><a class="btn btn-ouro" href="#planos">Testar 7 dias grátis</a><a class="btn btn-vidro" href="#modulos">Ver o app por dentro</a></div>' : '');
   etapa.appendChild(d); e.d = d;
   const li = document.createElement('li'); li.innerHTML = `${e.curto}<i></i>`; ol.appendChild(li); e.li = li;
   li.addEventListener('click', () => { const r = sec.getBoundingClientRect(); scrollTo({ top: scrollY + r.top + (sec.offsetHeight - innerHeight) * ((i + .5) / N), behavior: 'smooth' }); });
