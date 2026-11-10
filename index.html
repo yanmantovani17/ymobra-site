@@ -256,7 +256,8 @@ a.logo-parceiro:hover{border-color:var(--ouro,#c9a227);transform:translateY(-2px
 .queda{position:relative;height:calc(var(--n,6) * 120vh + 60vh);background:var(--noite);color:#fff}
 .queda .palco{position:sticky;top:0;height:100svh;min-height:560px;overflow:hidden}
 .queda .fundo{position:absolute;inset:-4%;opacity:0;background-size:cover;background-position:center;will-change:opacity,transform;filter:saturate(1.05)}
-.queda .palco::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(60% 70% at 50% 50%,rgba(6,18,31,.15),rgba(6,18,31,.55) 70%,rgba(6,18,31,.85)),linear-gradient(0deg,rgba(6,18,31,.9) 0%,transparent 30%),linear-gradient(180deg,rgba(6,18,31,.6) 0%,transparent 18%)}
+.queda .palco::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(var(--lado-txt,90deg),rgba(6,18,31,.72) 0%,rgba(6,18,31,.25) 38%,transparent 55%),linear-gradient(0deg,rgba(6,18,31,.75) 0%,transparent 22%),linear-gradient(180deg,rgba(6,18,31,.5) 0%,transparent 16%);transition:background .6s}
+.queda .palco.dir::before{--lado-txt:270deg}
 .queda canvas{position:absolute;inset:0;z-index:2;width:100%;height:100%;display:block}
 .queda .etapa{position:absolute;z-index:3;top:50%;transform:translateY(-50%);left:max(16px,calc((100% - 1160px)/2));width:min(420px,32vw);transition:left .5s,right .5s}
 .queda .etapa.dir{left:auto;right:max(16px,calc((100% - 1160px)/2))}
@@ -381,7 +382,7 @@ function loop(agora) {
     const largo = cam.aspect > 1.1, lado = i % 2 === 0 ? 1 : -1;
     // cada cena: o celular cai do alto girando, para do lado da cena, desce devagar e segue caindo para sair embaixo;
     // a próxima cena entra pelo outro lado (zigue-zague, como folha caindo)
-    const entra = sm(0, .32, t), sai = sm(.74, 1, t);
+    const entra = sm(0, .32, t), sai = i === N - 1 ? 0 : sm(.74, 1, t);
     const y = (1 - entra) * 3.2 - .3 * sm(.3, .74, t) - sai * 3.6;
     const giro = (1 - entra) * Math.PI * 2 * lado + sai * Math.PI * 1.2 * -lado;
     const balanço = reduzir ? 0 : Math.sin(tempo * .7) * .05;
@@ -390,7 +391,7 @@ function loop(agora) {
     cel.rotation.set(-.08 + (1 - entra) * .5 - sai * .4 + balanço, -lado * .38 + giro, lado * (-.08 + (1 - entra) * .25 + sai * .3));
     cel.position.set(x, (largo ? 0 : .55) + y + (reduzir ? 0 : Math.sin(tempo * .9) * .04), 0);
     if (telaMat && carregadas[i] && telaMat.map !== carregadas[i]) { telaMat.map = carregadas[i]; telaMat.color.set(0xffffff); telaMat.needsUpdate = true; }
-    etapa.classList.toggle('dir', lado < 0);
+    etapa.classList.toggle('dir', lado < 0); sec.querySelector('.palco').classList.toggle('dir', lado < 0);
     cam.position.set(0, 0, largo ? 6.2 : 9.6); cam.lookAt(0, 0, 0);
     renderer.render(cena, cam);
   }
