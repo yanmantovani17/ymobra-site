@@ -218,8 +218,9 @@ a.logo-parceiro:hover{border-color:var(--ouro,#c9a227);transform:translateY(-2px
 /* ===== Celular 3D caindo e girando sobre as etapas da obra ===== */
 .queda{position:relative;height:calc(var(--n,6) * 120vh + 60vh);background:var(--noite);color:#fff}
 .queda .palco{position:sticky;top:0;height:100svh;min-height:560px;overflow:hidden}
-.queda .fundo{position:absolute;inset:-4%;opacity:0;background-size:cover;background-position:center;will-change:opacity,transform;filter:saturate(1.05)}
-.queda .palco::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(var(--lado-txt,90deg),rgba(6,18,31,.72) 0%,rgba(6,18,31,.25) 38%,transparent 55%),linear-gradient(0deg,rgba(6,18,31,.75) 0%,transparent 22%),linear-gradient(180deg,rgba(6,18,31,.5) 0%,transparent 16%);transition:background .6s}
+.queda .fundo{position:absolute;inset:-2%;opacity:0;background-size:cover;background-position:center;will-change:opacity,transform;filter:saturate(1.15) contrast(1.08) brightness(1.08)}
+.queda .palco::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(var(--lado-txt,90deg),rgba(6,18,31,.62) 0%,rgba(6,18,31,.18) 30%,transparent 42%),linear-gradient(0deg,rgba(6,18,31,.55) 0%,transparent 12%),linear-gradient(180deg,rgba(6,18,31,.45) 0%,transparent 11%);transition:background .6s}
+.queda .etapa{text-shadow:0 2px 18px rgba(6,18,31,.75),0 1px 3px rgba(6,18,31,.6)}
 .queda .palco.dir::before{--lado-txt:270deg}
 .queda canvas{position:absolute;inset:0;z-index:2;width:100%;height:100%;display:block}
 .queda .etapa{position:absolute;z-index:3;top:50%;transform:translateY(-50%);left:max(16px,calc((100% - 1160px)/2));width:min(420px,32vw);transition:left .5s,right .5s}
@@ -243,7 +244,7 @@ a.logo-parceiro:hover{border-color:var(--ouro,#c9a227);transform:translateY(-2px
 .queda .lado li.on{color:#fff}
 .queda .lado ol{margin:0;padding:0;display:grid;grid-template-columns:repeat(var(--n,6),1fr);gap:10px}
 @media (max-width:860px){
-  .queda .palco::before{background:linear-gradient(0deg,var(--noite) 0%,rgba(6,18,31,.92) 30%,rgba(6,18,31,.2) 50%,rgba(6,18,31,.35) 100%)}
+  .queda .palco::before{background:linear-gradient(0deg,var(--noite) 0%,rgba(6,18,31,.9) 30%,rgba(6,18,31,.15) 46%,transparent 60%),linear-gradient(180deg,rgba(6,18,31,.45) 0%,transparent 12%)}
   .queda .etapa,.queda .etapa.dir{top:auto;bottom:40px;transform:none;width:auto;left:16px;right:16px;height:200px}
   .queda .etapa>div,.queda .etapa>div.on{top:auto;bottom:0;transform:none}
   .queda .etapa>div{transform:translateY(20px)}
@@ -342,7 +343,7 @@ function loop(agora) {
     let op = k === i ? 1 - sm(.78, 1, t) : k === i + 1 ? sm(.78, 1, t) : 0;
     if (k === 0 && i === 0) op = 1;
     e.f.style.opacity = op;
-    if (op > 0) e.f.style.transform = `scale(${1.12 - .08 * (k === i ? t : 0)})`;
+    if (op > 0) e.f.style.transform = `scale(${1.06 - .04 * (k === i ? t : 0)})`;
     e.li.style.setProperty('--f', k < i ? 1 : k === i ? t : 0); e.li.classList.toggle('on', k === i);
   });
   if (i !== atual) { atual = i; ETAPAS.forEach((e, k) => e.d.classList.toggle('on', k === i)); }
