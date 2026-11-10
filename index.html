@@ -68,7 +68,7 @@ p{margin:0}
 .hero .nota{margin-top:14px;font-size:.92rem;color:#9fb0c9}
 .celular{justify-self:center;width:300px;background:#02070f;border-radius:40px 40px 0 0;padding:12px 12px 0;border:1px solid #23395a;border-bottom:0;box-shadow:0 -20px 80px rgba(201,162,39,.22)}
 .celular img{border-radius:30px 30px 0 0;width:100%;aspect-ratio:390/700;object-fit:cover;object-position:top}
-@media (prefers-reduced-motion:reduce){.hero video{display:none}.hero{background:var(--noite) url("https://assets.mixkit.co/videos/23170/23170-thumb-720-0.jpg") center/cover}}
+
 @media (max-width:880px){.hero .miolo{grid-template-columns:1fr;padding-top:110px}.hero .texto{padding-bottom:8px}.celular{width:260px}}
 
 /* números do produto */
@@ -214,43 +214,6 @@ a.logo-parceiro:hover{border-color:var(--ouro,#c9a227);transform:translateY(-2px
 </header>
 
 <main>
-<section class="hero" style="padding:0">
-  <video autoplay muted loop playsinline preload="metadata" poster="https://assets.mixkit.co/videos/23170/23170-thumb-720-0.jpg" aria-hidden="true">
-    <source src="https://assets.mixkit.co/videos/23170/23170-720.mp4" type="video/mp4">
-  </video>
-  <div class="miolo">
-    <div class="texto">
-      <span class="selo">Feito por engenheiro civil, testado em obra</span>
-      <h1>A obra registrada no dia, <span>não no fim do mês.</span></h1>
-      <p class="lead">RDO, FVS, controle de EPI e ferramentas, checklist de segurança e pedido de material num só aplicativo. O encarregado preenche no celular, com foto, local e assinatura. O escritório recebe pronto.</p>
-      <div class="acoes">
-        <a class="btn btn-ouro" href="#planos">Testar 7 dias grátis</a>
-        <a class="btn btn-vidro" href="#modulos">Ver o app por dentro</a>
-      </div>
-      <p class="nota">Sem cartão para testar. Funciona no Android, iPhone e computador.</p>
-    </div>
-    <div class="celular"><img src="telas/rdo.webp" alt="Tela do RDO no YMOBRA com clima da manhã, tarde e noite" width="390" height="700"></div>
-  </div>
-</section>
-
-<div class="fatos">
-  <div class="miolo">
-    <div class="fato"><strong>5</strong><span>módulos num só app: RDO, FVS, EPI, checklist e material</span></div>
-    <div class="fato"><strong>1</strong><span>banco de dados exclusivo por empresa, sem mistura</span></div>
-    <div class="fato"><strong>7 dias</strong><span>de teste grátis, sem cartão de crédito</span></div>
-    <div class="fato"><strong>PDF</strong><span>com o seu logo e o do cliente em cada relatório</span></div>
-  </div>
-</div>
-
-<div class="troca">
-  <div class="miolo">
-    <div><s>Caderno de obra</s><strong>RDO com foto e assinatura</strong></div>
-    <div><s>FVS em papel</s><strong>Inspeção com reparo e reinspeção</strong></div>
-    <div><s>Ficha de EPI</s><strong>Entrega assinada no celular</strong></div>
-    <div><s>Pedido no WhatsApp</s><strong>Material com aprovação</strong></div>
-  </div>
-</div>
-
 <style>
 /* ===== Celular 3D caindo e girando sobre as etapas da obra ===== */
 .queda{position:relative;height:calc(var(--n,6) * 120vh + 60vh);background:var(--noite);color:#fff}
@@ -265,7 +228,11 @@ a.logo-parceiro:hover{border-color:var(--ouro,#c9a227);transform:translateY(-2px
 .queda .etapa>div.on{opacity:1;transform:translateY(-50%);filter:none;pointer-events:auto}
 .queda .num{font:800 clamp(4rem,8vw,7rem)/.85 var(--cond);color:transparent;-webkit-text-stroke:1.5px var(--ouro)}
 .queda .modulo{display:inline-block;margin-top:14px;font:700 .76rem/1 var(--corpo);letter-spacing:.18em;text-transform:uppercase;color:var(--navy);background:var(--ouro);padding:8px 12px;border-radius:4px}
-.queda h2{font-size:clamp(2.2rem,4vw,3.6rem);margin-top:14px}
+.queda h2,.queda h1{font-size:clamp(2.2rem,4vw,3.6rem);margin-top:14px;line-height:1.02}
+.queda h1{font-size:clamp(2.4rem,4.4vw,4rem)}
+.queda h1 span{color:var(--ouro-claro)}
+@media (max-width:860px){.queda .nota-abre{display:none}.queda .etapa .acoes{margin-top:14px}.queda .etapa .acoes .btn{min-height:44px;padding:0 18px}.queda .etapa .acoes .btn-vidro{display:none}}
+.queda .nota-abre{font-size:.85rem!important;color:#9aa6b8!important;margin-top:12px!important}
 .queda h2 span{color:var(--ouro-claro)}
 .queda .etapa p{margin-top:12px;color:#d5dce6;font-size:1.05rem}
 .queda .etapa .acoes{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
@@ -303,7 +270,7 @@ import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.j
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 
 const ETAPAS = [
-  { fundo: 'etapa1', tela: 'telas/rdo.webp', mod: 'RDO', t: 'A estrutura sobe. <span>O diário acompanha.</span>', p: 'Clima, efetivo, equipamentos e fotos com data, hora e local. O RDO do dia sai em minutos.', curto: 'Estrutura' },
+  { fundo: 'etapa1', tela: 'telas/rdo.webp', mod: 'RDO · Diário de obra', t: 'A obra registrada no dia, <span>não no fim do mês.</span>', p: 'RDO, FVS, EPI, checklist e material num só app. O encarregado preenche no celular, com foto, local e assinatura. Role para ver.', curto: 'Estrutura', abre: true },
   { fundo: 'etapa2', tela: 'telas/fvs.webp', mod: 'FVS', t: 'Cada parede <span>verificada.</span>', p: 'Critério e tolerância por item. O que não passou vira reparo e volta para reinspeção.', curto: 'Alvenaria' },
   { fundo: 'etapa3', tela: 'telas/epi.webp', mod: 'EPI e ferramentas', t: 'Equipamento entregue <span>e assinado.</span>', p: 'Capacete, botina e ferramenta com a assinatura do colaborador no celular.', curto: 'EPI' },
   { fundo: 'etapa4', tela: 'telas/checklist.webp', mod: 'Checklist', t: 'Segurança <span>item por item.</span>', p: 'Andaime, guarda-corpo e tela conferidos com foto e plano de ação.', curto: 'Segurança' },
@@ -315,12 +282,13 @@ const fundos = sec.querySelector('.fundos'), etapa = sec.querySelector('.etapa')
 ETAPAS.forEach((e, i) => {
   const f = document.createElement('div'); f.className = 'fundo'; f.dataset.src = `obra/${e.fundo}.webp`; fundos.appendChild(f); e.f = f;
   const d = document.createElement('div');
-  d.innerHTML = `<div class="num">0${i + 1}</div><span class="modulo">${e.mod}</span><h2>${e.t}</h2><p>${e.p}</p>` + (e.cta ? '<div class="acoes"><a class="btn btn-ouro" href="#planos">Testar 7 dias grátis</a><a class="btn btn-vidro" href="#modulos">Ver o app por dentro</a></div>' : '');
+  d.innerHTML = `<div class="num">0${i + 1}</div><span class="modulo">${e.mod}</span><${e.abre ? 'h1' : 'h2'}>${e.t}</${e.abre ? 'h1' : 'h2'}><p>${e.p}</p>` + (e.abre ? '<div class="acoes"><a class="btn btn-ouro" href="#planos">Testar 7 dias grátis</a><a class="btn btn-vidro" href="#modulos">Ver o app por dentro</a></div><p class="nota-abre">Sem cartão para testar. Android, iPhone e computador.</p>' : '') + (e.cta ? '<div class="acoes"><a class="btn btn-ouro" href="#planos">Testar 7 dias grátis</a><a class="btn btn-vidro" href="#modulos">Ver o app por dentro</a></div>' : '');
   etapa.appendChild(d); e.d = d;
   const li = document.createElement('li'); li.innerHTML = `${e.curto}<i></i>`; ol.appendChild(li); e.li = li;
   li.addEventListener('click', () => { const r = sec.getBoundingClientRect(); scrollTo({ top: scrollY + r.top + (sec.offsetHeight - innerHeight) * ((i + .5) / N), behavior: 'smooth' }); });
 });
 const carregarFundos = () => ETAPAS.forEach((e) => { if (!e.f.style.backgroundImage) e.f.style.backgroundImage = `url(${e.f.dataset.src})`; });
+ETAPAS[0].f.style.backgroundImage = `url(${ETAPAS[0].f.dataset.src})`;
 new IntersectionObserver(([x], o) => { if (x.isIntersecting) { carregarFundos(); o.disconnect(); } }, { rootMargin: '120% 0px' }).observe(sec);
 
 // ---------- celular 3D ----------
@@ -382,22 +350,40 @@ function loop(agora) {
     const largo = cam.aspect > 1.1, lado = i % 2 === 0 ? 1 : -1;
     // cada cena: o celular cai do alto girando, para do lado da cena, desce devagar e segue caindo para sair embaixo;
     // a próxima cena entra pelo outro lado (zigue-zague, como folha caindo)
-    const entra = sm(0, .32, t), sai = i === N - 1 ? 0 : sm(.74, 1, t);
+    const entra = i === 0 ? Math.max(sm(0, 1.6, tempo), sm(0, .32, t)) : sm(0, .32, t), sai = i === N - 1 ? 0 : sm(.74, 1, t);
     const y = (1 - entra) * 3.2 - .3 * sm(.3, .74, t) - sai * 3.6;
     const giro = (1 - entra) * Math.PI * 2 * lado + sai * Math.PI * 1.2 * -lado;
     const balanço = reduzir ? 0 : Math.sin(tempo * .7) * .05;
     const xBase = largo ? 1.3 : .28;
     const x = lado * xBase * (0.55 + .45 * entra) + lado * sai * .5;
     cel.rotation.set(-.08 + (1 - entra) * .5 - sai * .4 + balanço, -lado * .38 + giro, lado * (-.08 + (1 - entra) * .25 + sai * .3));
-    cel.position.set(x, (largo ? 0 : .55) + y + (reduzir ? 0 : Math.sin(tempo * .9) * .04), 0);
+    cel.position.set(x, (largo ? 0 : 1.0) + y + (reduzir ? 0 : Math.sin(tempo * .9) * .04), 0);
     if (telaMat && carregadas[i] && telaMat.map !== carregadas[i]) { telaMat.map = carregadas[i]; telaMat.color.set(0xffffff); telaMat.needsUpdate = true; }
     etapa.classList.toggle('dir', lado < 0); sec.querySelector('.palco').classList.toggle('dir', lado < 0);
-    cam.position.set(0, 0, largo ? 6.2 : 9.6); cam.lookAt(0, 0, 0);
+    cam.position.set(0, 0, largo ? 6.2 : 10.8); cam.lookAt(0, 0, 0);
     renderer.render(cena, cam);
   }
   requestAnimationFrame(loop);
 }
 </script>
+
+<div class="fatos">
+  <div class="miolo">
+    <div class="fato"><strong>5</strong><span>módulos num só app: RDO, FVS, EPI, checklist e material</span></div>
+    <div class="fato"><strong>1</strong><span>banco de dados exclusivo por empresa, sem mistura</span></div>
+    <div class="fato"><strong>7 dias</strong><span>de teste grátis, sem cartão de crédito</span></div>
+    <div class="fato"><strong>PDF</strong><span>com o seu logo e o do cliente em cada relatório</span></div>
+  </div>
+</div>
+
+<div class="troca">
+  <div class="miolo">
+    <div><s>Caderno de obra</s><strong>RDO com foto e assinatura</strong></div>
+    <div><s>FVS em papel</s><strong>Inspeção com reparo e reinspeção</strong></div>
+    <div><s>Ficha de EPI</s><strong>Entrega assinada no celular</strong></div>
+    <div><s>Pedido no WhatsApp</s><strong>Material com aprovação</strong></div>
+  </div>
+</div>
 
 <section id="modulos">
   <div class="miolo">
