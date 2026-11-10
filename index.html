@@ -252,114 +252,150 @@ a.logo-parceiro:hover{border-color:var(--ouro,#c9a227);transform:translateY(-2px
 </div>
 
 <style>
-/* ===== Um dia na obra com o YMOBRA (cenas animadas pela rolagem) ===== */
-.dia{position:relative;height:calc(var(--n,8) * 115vh);background:var(--noite);color:#fff}
-.dia .palco{position:sticky;top:0;height:100svh;min-height:560px;overflow:hidden}
-.dia .cena{position:absolute;inset:0;opacity:0;will-change:opacity}
-.dia .cena img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:var(--fx,50%) var(--fy,50%);will-change:transform,opacity}
-.dia .cena .acesa{opacity:0}
-.dia .palco::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(6,18,31,.82) 0%,rgba(6,18,31,.35) 38%,transparent 60%),linear-gradient(0deg,rgba(6,18,31,.75) 0%,transparent 28%),linear-gradient(180deg,rgba(6,18,31,.5) 0%,transparent 18%)}
-.dia .relogio{position:absolute;z-index:3;right:max(16px,calc((100% - 1160px)/2));top:96px;text-align:right}
-.dia .relogio small{display:block;font:600 .74rem/1 var(--corpo);letter-spacing:.2em;text-transform:uppercase;color:var(--ouro-claro)}
-.dia .relogio b{display:block;font:800 clamp(3rem,6.5vw,5.6rem)/.9 var(--cond);letter-spacing:.02em;margin-top:6px;font-variant-numeric:tabular-nums}
-.dia .texto{position:absolute;z-index:3;left:max(16px,calc((100% - 1160px)/2));bottom:clamp(120px,19vh,200px);width:min(520px,calc(100% - 32px))}
-.dia .texto>div{position:absolute;left:0;bottom:0;width:100%;opacity:0;transform:translateY(24px);filter:blur(6px);transition:opacity .6s,transform .6s,filter .6s;pointer-events:none}
-.dia .texto>div.on{opacity:1;transform:none;filter:none;pointer-events:auto}
-.dia .modulo{display:inline-flex;align-items:center;gap:10px;font:700 .78rem/1 var(--corpo);letter-spacing:.18em;text-transform:uppercase;color:var(--navy);background:var(--ouro);padding:8px 12px;border-radius:4px}
-.dia h2{font-size:clamp(2.4rem,5vw,4.2rem);margin-top:16px;color:#fff}
-.dia h2 span{color:var(--ouro-claro)}
-.dia .texto p{margin-top:14px;color:#d5dce6;font-size:1.08rem;max-width:30em}
-.dia .texto .acoes{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
-.dia .linha{position:absolute;z-index:3;left:0;right:0;bottom:28px}
-.dia .linha ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(var(--n,8),1fr);gap:8px}
-.dia .linha li{font:600 .7rem/1.25 var(--corpo);letter-spacing:.08em;text-transform:uppercase;color:#8592a6;padding-top:12px;position:relative;cursor:pointer;transition:color .3s}
-.dia .linha li::before{content:"";position:absolute;inset:0 0 auto;height:2px;background:rgba(255,255,255,.16)}
-.dia .linha li::after{content:"";position:absolute;left:0;top:0;height:2px;width:calc(var(--f,0) * 100%);background:var(--ouro);box-shadow:0 0 10px rgba(201,162,39,.6)}
-.dia .linha li.on{color:#fff}
-.dia .linha li b{display:block;color:var(--ouro-claro);font-weight:700}
-@media (max-width:760px){
-  .dia .cena{bottom:34%}
-  .dia .palco::after{background:linear-gradient(0deg,var(--noite) 0%,var(--noite) 34%,rgba(6,18,31,.6) 44%,transparent 56%),linear-gradient(180deg,rgba(6,18,31,.55) 0%,transparent 16%)}
-  .dia .texto{bottom:96px}
-  .dia .relogio{top:86px}
-  .dia .linha li{font-size:0;padding-top:8px}.dia .linha li b{font-size:.62rem}
-  .dia h2{font-size:clamp(2rem,9vw,2.6rem)}
-  .dia .texto p{font-size:.98rem}
+/* ===== Celular 3D caindo e girando sobre as etapas da obra ===== */
+.queda{position:relative;height:calc(var(--n,6) * 120vh + 60vh);background:var(--noite);color:#fff}
+.queda .palco{position:sticky;top:0;height:100svh;min-height:560px;overflow:hidden}
+.queda .fundo{position:absolute;inset:-4%;opacity:0;background-size:cover;background-position:center;will-change:opacity,transform;filter:saturate(1.05)}
+.queda .palco::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(60% 70% at 50% 50%,rgba(6,18,31,.15),rgba(6,18,31,.55) 70%,rgba(6,18,31,.85)),linear-gradient(0deg,rgba(6,18,31,.9) 0%,transparent 30%),linear-gradient(180deg,rgba(6,18,31,.6) 0%,transparent 18%)}
+.queda canvas{position:absolute;inset:0;z-index:2;width:100%;height:100%;display:block}
+.queda .etapa{position:absolute;z-index:3;top:50%;transform:translateY(-50%);left:max(16px,calc((100% - 1160px)/2));width:min(420px,32vw);transition:left .5s,right .5s}
+.queda .etapa.dir{left:auto;right:max(16px,calc((100% - 1160px)/2))}
+.queda .etapa>div{position:absolute;left:0;top:50%;width:100%;opacity:0;transform:translateY(calc(-50% + 26px));filter:blur(6px);transition:opacity .6s,transform .6s,filter .6s;pointer-events:none}
+.queda .etapa>div.on{opacity:1;transform:translateY(-50%);filter:none;pointer-events:auto}
+.queda .num{font:800 clamp(4rem,8vw,7rem)/.85 var(--cond);color:transparent;-webkit-text-stroke:1.5px var(--ouro)}
+.queda .modulo{display:inline-block;margin-top:14px;font:700 .76rem/1 var(--corpo);letter-spacing:.18em;text-transform:uppercase;color:var(--navy);background:var(--ouro);padding:8px 12px;border-radius:4px}
+.queda h2{font-size:clamp(2.2rem,4vw,3.6rem);margin-top:14px}
+.queda h2 span{color:var(--ouro-claro)}
+.queda .etapa p{margin-top:12px;color:#d5dce6;font-size:1.05rem}
+.queda .etapa .acoes{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
+.queda .lado{position:absolute;z-index:3;left:max(16px,calc((100% - 1160px)/2));right:max(16px,calc((100% - 1160px)/2));bottom:28px}
+.queda .lado li{list-style:none;display:flex;flex-direction:column-reverse;align-items:flex-start;gap:10px;font:600 .74rem/1 var(--corpo);letter-spacing:.14em;text-transform:uppercase;color:#7f8ca2;cursor:pointer;transition:color .3s}
+.queda .lado li i{width:100%;height:2px;background:rgba(255,255,255,.2);position:relative;overflow:hidden}
+.queda .lado li i::after{content:"";position:absolute;inset:0;background:var(--ouro);transform-origin:left;transform:scaleX(var(--f,0))}
+.queda .lado li.on{color:#fff}
+.queda .lado ol{margin:0;padding:0;display:grid;grid-template-columns:repeat(var(--n,6),1fr);gap:10px}
+@media (max-width:860px){
+  .queda .palco::before{background:linear-gradient(0deg,var(--noite) 0%,rgba(6,18,31,.92) 30%,rgba(6,18,31,.2) 50%,rgba(6,18,31,.35) 100%)}
+  .queda .etapa,.queda .etapa.dir{top:auto;bottom:40px;transform:none;width:auto;left:16px;right:16px;height:200px}
+  .queda .etapa>div,.queda .etapa>div.on{top:auto;bottom:0;transform:none}
+  .queda .etapa>div{transform:translateY(20px)}
+  .queda .num{display:none}
+  .queda h2{font-size:clamp(1.9rem,8vw,2.4rem)}
+  .queda .etapa p{font-size:.96rem}
+  .queda .lado{display:none}
 }
-@media (max-height:700px) and (min-width:761px){.dia .texto{bottom:90px}.dia h2{font-size:clamp(2rem,4vw,3.2rem)}.dia .relogio{top:84px}}
 </style>
 
-<section class="dia" id="um-dia" aria-label="Um dia na obra com o YMOBRA" style="padding:0">
+<section class="queda" id="na-obra" aria-label="O YMOBRA em cada etapa da obra" style="padding:0">
   <div class="palco">
-    <div class="cenas"></div>
-    <div class="relogio" aria-hidden="true"><small data-r="mod">Um dia na obra</small><b data-r="hora">06:00</b></div>
-    <div class="texto" aria-live="polite"></div>
-    <div class="linha"><div class="miolo"><ol></ol></div></div>
+    <div class="fundos" aria-hidden="true"></div>
+    <canvas id="cel3d" aria-hidden="true"></canvas>
+    <div class="etapa" aria-live="polite"></div>
+    <div class="lado"><ol></ol></div>
   </div>
 </section>
 
-<script>
-(() => {
-  const CENAS = [
-    { hora: '06:00', mod: 'Um dia na obra', curto: 'Início', t: 'Sua obra inteira <span>cabe no bolso.</span>', p: 'Acompanhe um dia de obra com o YMOBRA, do café da manhã ao relatório do cliente. Role para ver.' },
-    { hora: '07:00', mod: 'RDO', curto: 'RDO', t: 'Diário de obra <span>em poucos toques.</span>', p: 'Clima por período, efetivo, equipamentos e fotos com data, hora e local gravados na imagem.' },
-    { hora: '10:00', mod: 'FVS', curto: 'FVS', t: 'Inspeção com <span>reparo e reinspeção.</span>', p: 'Critério e tolerância em cada item. O que não passou vira reparo e volta para nova verificação.' },
-    { hora: '11:30', mod: 'EPI e ferramentas', curto: 'EPI', t: 'Entrega assinada <span>no celular.</span>', p: 'Capacete, botina e ferramenta entregues com a assinatura do colaborador. Sem ficha de papel.' },
-    { hora: '14:00', mod: 'Checklist', curto: 'Checklist', t: 'Segurança conferida <span>item por item.</span>', p: 'Checklist com foto e plano de ação para o que estiver fora do padrão.' },
-    { hora: '15:30', mod: 'Material', curto: 'Material', t: 'Pedido de material <span>com aprovação.</span>', p: 'O encarregado pede, o engenheiro aprova e o material chega. Fim do pedido perdido no WhatsApp.' },
-    { hora: '18:00', mod: 'Aprovação', curto: 'Relatório', t: 'Relatório pronto <span>para o cliente.</span>', p: 'O engenheiro aprova o RDO e o PDF sai com o seu logo e o do cliente, com link para o contratante acompanhar.' },
-    { hora: '24h', mod: 'Todas as obras', curto: 'Alcance', t: 'Uma empresa. Todas as obras. <span>Um app.</span>', p: 'Cada obra com o seu histórico, num banco de dados exclusivo da sua empresa.', cta: true },
-  ];
-  const FOCOS = {"0": [0.475, 0.579], "1": [0.53, 0.62], "2": [0.52, 0.717], "3": [0.677, 0.681], "4": [0.401, 0.553], "5": [0.486, 0.57], "6": [0.757, 0.623], "7": [0.5, 0.709]};
-  const sec = document.getElementById('um-dia'), palco = sec.querySelector('.palco');
-  const N = CENAS.length; sec.style.setProperty('--n', N);
-  const cenasEl = sec.querySelector('.cenas'), textoEl = sec.querySelector('.texto'), ol = sec.querySelector('.linha ol');
-  const cel = () => innerWidth < 760;
-  CENAS.forEach((c, i) => {
-    const f = FOCOS[i] || [0.5, 0.5];
-    const d = document.createElement('div'); d.className = 'cena'; d.style.setProperty('--fx', (f[0] * 100) + '%'); d.style.setProperty('--fy', (f[1] * 100) + '%');
-    const carregar = i < 2 ? 'eager' : 'lazy';
-    d.innerHTML = `<img class="apagada" src="dia/cena${i}-apagada.webp" alt="" loading="${carregar}" decoding="async"><img class="acesa" src="dia/cena${i}-acesa.webp" alt="" loading="${carregar}" decoding="async">`;
-    cenasEl.appendChild(d); c.el = d; c.ap = d.children[0]; c.ac = d.children[1];
-    const t = document.createElement('div');
-    t.innerHTML = `<span class="modulo">${c.mod}</span><h2>${c.t}</h2><p>${c.p}</p>` + (c.cta ? '<div class="acoes"><a class="btn btn-ouro" href="#planos">Testar 7 dias grátis</a><a class="btn btn-vidro" href="#modulos">Ver o app por dentro</a></div>' : '');
-    textoEl.appendChild(t); c.txt = t;
-    const li = document.createElement('li'); li.innerHTML = `<b>${c.hora}</b>${c.curto}`; ol.appendChild(li); c.li = li;
-    li.addEventListener('click', () => { const r = sec.getBoundingClientRect(); scrollTo({ top: scrollY + r.top + (sec.offsetHeight - innerHeight) * ((i + 0.35) / N), behavior: 'smooth' }); });
-  });
-  // a primeira cena carrega antes; as outras quando a seção se aproxima
-  new IntersectionObserver(([e], o) => { if (e.isIntersecting) { sec.querySelectorAll('img[loading=lazy]').forEach((im) => im.loading = 'eager'); o.disconnect(); } }, { rootMargin: '150% 0px' }).observe(sec);
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 
-  const reduzir = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const sm = (a, b, x) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
-  const hora = sec.querySelector('[data-r=hora]'), mod = sec.querySelector('[data-r=mod]');
-  let pS = 0, ult = performance.now(), atual = -1, visivel = false;
-  new IntersectionObserver(([e]) => { visivel = e.isIntersecting; if (visivel) requestAnimationFrame(loop); }).observe(sec);
-  function loop(agora) {
-    if (!visivel) return;
-    const dt = Math.min(0.1, (agora - ult) / 1000); ult = agora;
-    const r = sec.getBoundingClientRect(), alvo = Math.min(1, Math.max(0, -r.top / (r.height - innerHeight)));
-    pS += (alvo - pS) * (reduzir ? 1 : 1 - Math.exp(-dt * 8));
-    const s = pS * N - 1e-6, i = Math.max(0, Math.min(N - 1, Math.floor(s))), t = s - i;
-    CENAS.forEach((c, k) => {
-      let op = 0;
-      if (k === i) op = 1;
-      else if (k === i + 1) op = sm(0.8, 1, t);                     // a próxima cena entra no fim da atual
-      c.el.style.opacity = op;
-      if (op > 0) {
-        const tl = k === i ? t : t - 1;                               // tempo local da cena (-0.2..1)
-        const z = 1.16 - 0.12 * Math.max(0, tl) - (k === i + 1 ? 0.0 : 0);
-        const dx = (k % 2 ? -1 : 1) * 2.2 * (tl - 0.5);
-        const tr = `scale(${z}) translate3d(${dx}%, ${-0.8 * tl}%, 0)`;
-        c.ap.style.transform = tr; c.ac.style.transform = tr;
-        c.ac.style.opacity = k === 0 ? sm(0.35, 0.6, tl) : sm(0.18, 0.4, tl);   // a tela do app "acende"
-      }
-      c.li.style.setProperty('--f', k < i ? 1 : k === i ? t : 0); c.li.classList.toggle('on', k === i);
-    });
-    if (i !== atual) { atual = i; CENAS.forEach((c, k) => c.txt.classList.toggle('on', k === i)); hora.textContent = CENAS[i].hora; mod.textContent = CENAS[i].mod; }
-    requestAnimationFrame(loop);
+const ETAPAS = [
+  { fundo: 'etapa1', tela: 'telas/rdo.webp', mod: 'RDO', t: 'A estrutura sobe. <span>O diário acompanha.</span>', p: 'Clima, efetivo, equipamentos e fotos com data, hora e local. O RDO do dia sai em minutos.', curto: 'Estrutura' },
+  { fundo: 'etapa2', tela: 'telas/fvs.webp', mod: 'FVS', t: 'Cada parede <span>verificada.</span>', p: 'Critério e tolerância por item. O que não passou vira reparo e volta para reinspeção.', curto: 'Alvenaria' },
+  { fundo: 'etapa3', tela: 'telas/epi.webp', mod: 'EPI e ferramentas', t: 'Equipamento entregue <span>e assinado.</span>', p: 'Capacete, botina e ferramenta com a assinatura do colaborador no celular.', curto: 'EPI' },
+  { fundo: 'etapa4', tela: 'telas/checklist.webp', mod: 'Checklist', t: 'Segurança <span>item por item.</span>', p: 'Andaime, guarda-corpo e tela conferidos com foto e plano de ação.', curto: 'Segurança' },
+  { fundo: 'etapa5', tela: 'telas/material.webp', mod: 'Material', t: 'O pedido sai. <span>O material chega.</span>', p: 'O encarregado pede, o engenheiro aprova e o fornecedor entrega. Sem pedido perdido no WhatsApp.', curto: 'Material' },
+  { fundo: 'etapa6', tela: 'telas/historico.webp', mod: 'Entrega', t: 'Obra entregue, <span>tudo registrado.</span>', p: 'Relatórios em PDF com o seu logo, histórico completo e link para o cliente acompanhar.', curto: 'Entrega', cta: true },
+];
+const sec = document.getElementById('na-obra'), N = ETAPAS.length; sec.style.setProperty('--n', N);
+const fundos = sec.querySelector('.fundos'), etapa = sec.querySelector('.etapa'), ol = sec.querySelector('.lado ol');
+ETAPAS.forEach((e, i) => {
+  const f = document.createElement('div'); f.className = 'fundo'; f.dataset.src = `obra/${e.fundo}.webp`; fundos.appendChild(f); e.f = f;
+  const d = document.createElement('div');
+  d.innerHTML = `<div class="num">0${i + 1}</div><span class="modulo">${e.mod}</span><h2>${e.t}</h2><p>${e.p}</p>` + (e.cta ? '<div class="acoes"><a class="btn btn-ouro" href="#planos">Testar 7 dias grátis</a><a class="btn btn-vidro" href="#modulos">Ver o app por dentro</a></div>' : '');
+  etapa.appendChild(d); e.d = d;
+  const li = document.createElement('li'); li.innerHTML = `${e.curto}<i></i>`; ol.appendChild(li); e.li = li;
+  li.addEventListener('click', () => { const r = sec.getBoundingClientRect(); scrollTo({ top: scrollY + r.top + (sec.offsetHeight - innerHeight) * ((i + .5) / N), behavior: 'smooth' }); });
+});
+const carregarFundos = () => ETAPAS.forEach((e) => { if (!e.f.style.backgroundImage) e.f.style.backgroundImage = `url(${e.f.dataset.src})`; });
+new IntersectionObserver(([x], o) => { if (x.isIntersecting) { carregarFundos(); o.disconnect(); } }, { rootMargin: '120% 0px' }).observe(sec);
+
+// ---------- celular 3D ----------
+const canvas = document.getElementById('cel3d');
+let renderer; try { renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true }); } catch (e) {}
+const cena = new THREE.Scene(), cam = new THREE.PerspectiveCamera(30, 1, 0.1, 100);
+let telaMat, carregadas = [];
+if (renderer) {
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2)); renderer.outputColorSpace = THREE.SRGBColorSpace; renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  cena.environment = new THREE.PMREMGenerator(renderer).fromScene(new RoomEnvironment(), 0.04).texture;
+  const W = 1.0, H = 2.12, D = 0.11;
+  const corpo = new THREE.Mesh(new RoundedBoxGeometry(W, H, D, 8, 0.13), new THREE.MeshPhysicalMaterial({ color: 0x1a1d22, metalness: 0.9, roughness: 0.28, clearcoat: 1, clearcoatRoughness: 0.15 }));
+  const aro = new THREE.Mesh(new RoundedBoxGeometry(W + 0.018, H + 0.018, D * 0.8, 8, 0.135), new THREE.MeshStandardMaterial({ color: 0xc9a227, metalness: 1, roughness: 0.25 }));
+  // tela com cantos arredondados
+  const forma = new THREE.Shape(), w = W - 0.07, h = H - 0.07, r = 0.1;
+  forma.moveTo(-w / 2 + r, -h / 2); forma.lineTo(w / 2 - r, -h / 2); forma.quadraticCurveTo(w / 2, -h / 2, w / 2, -h / 2 + r); forma.lineTo(w / 2, h / 2 - r);
+  forma.quadraticCurveTo(w / 2, h / 2, w / 2 - r, h / 2); forma.lineTo(-w / 2 + r, h / 2); forma.quadraticCurveTo(-w / 2, h / 2, -w / 2, h / 2 - r); forma.lineTo(-w / 2, -h / 2 + r); forma.quadraticCurveTo(-w / 2, -h / 2, -w / 2 + r, -h / 2);
+  const gTela = new THREE.ShapeGeometry(forma, 12);
+  const uv = gTela.attributes.uv, pos = gTela.attributes.position;
+  for (let i = 0; i < uv.count; i++) uv.setXY(i, (pos.getX(i) + w / 2) / w, (pos.getY(i) + h / 2) / h);
+  telaMat = new THREE.MeshBasicMaterial({ color: 0x0b1f3a, toneMapped: false });
+  const telaM = new THREE.Mesh(gTela, telaMat); telaM.position.z = D / 2 + 0.002;
+  const vidro = new THREE.Mesh(gTela, new THREE.MeshPhysicalMaterial({ transparent: true, opacity: 0.12, roughness: 0.05, metalness: 0, clearcoat: 1, color: 0xffffff }));
+  vidro.position.z = D / 2 + 0.004;
+  const ilha = new THREE.Mesh(new RoundedBoxGeometry(0.3, 0.075, 0.01, 4, 0.037), new THREE.MeshBasicMaterial({ color: 0x000000 })); ilha.position.set(0, h / 2 - 0.08, D / 2 + 0.006);
+  const camera3 = new THREE.Mesh(new RoundedBoxGeometry(0.38, 0.38, 0.04, 6, 0.08), new THREE.MeshPhysicalMaterial({ color: 0x23262b, metalness: .8, roughness: .3 })); camera3.position.set(-0.24, 0.78, -D / 2 - 0.02);
+  const cel = new THREE.Group(); cel.add(aro, corpo, telaM, vidro, camera3); cel.scale.setScalar(.9); cena.add(cel);
+  const chave = new THREE.DirectionalLight(0xffe0b0, 2.2); chave.position.set(3, 4, 5); cena.add(chave);
+  const contra = new THREE.DirectionalLight(0xc9a227, 1.6); contra.position.set(-4, 1, -3); cena.add(contra);
+  cena.add(new THREE.AmbientLight(0x6080b0, 0.4));
+  const loader = new THREE.TextureLoader();
+  carregadas = ETAPAS.map((e) => { const t = loader.load(e.tela); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; return t; });
+  const tam = () => { const W_ = canvas.clientWidth, H_ = canvas.clientHeight; renderer.setSize(W_, H_, false); cam.aspect = W_ / H_; cam.updateProjectionMatrix(); };
+  addEventListener('resize', tam); tam();
+  sec.__cel = cel;
+}
+
+const reduzir = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const sm = (a, b, x) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
+let pS = 0, ult = performance.now(), atual = -1, vis = false; const t0 = ult;
+new IntersectionObserver(([x]) => { vis = x.isIntersecting; if (vis) requestAnimationFrame(loop); }).observe(sec);
+function loop(agora) {
+  if (!vis) return;
+  const dt = Math.min(.1, (agora - ult) / 1000); ult = agora; const tempo = (agora - t0) / 1000;
+  const r = sec.getBoundingClientRect(), alvo = Math.min(1, Math.max(0, -r.top / (r.height - innerHeight)));
+  pS += (alvo - pS) * (reduzir ? 1 : 1 - Math.exp(-dt * 7));
+  const s = pS * N - 1e-6, i = Math.max(0, Math.min(N - 1, Math.floor(s))), t = s - i;
+  // fundos: troca cruzada no meio da passagem, com zoom lento
+  ETAPAS.forEach((e, k) => {
+    let op = k === i ? 1 - sm(.78, 1, t) : k === i + 1 ? sm(.78, 1, t) : 0;
+    if (k === 0 && i === 0) op = 1;
+    e.f.style.opacity = op;
+    if (op > 0) e.f.style.transform = `scale(${1.12 - .08 * (k === i ? t : 0)})`;
+    e.li.style.setProperty('--f', k < i ? 1 : k === i ? t : 0); e.li.classList.toggle('on', k === i);
+  });
+  if (i !== atual) { atual = i; ETAPAS.forEach((e, k) => e.d.classList.toggle('on', k === i)); }
+  const cel = sec.__cel;
+  if (cel) {
+    const largo = cam.aspect > 1.1, lado = i % 2 === 0 ? 1 : -1;
+    // cada cena: o celular cai do alto girando, para do lado da cena, desce devagar e segue caindo para sair embaixo;
+    // a próxima cena entra pelo outro lado (zigue-zague, como folha caindo)
+    const entra = sm(0, .32, t), sai = sm(.74, 1, t);
+    const y = (1 - entra) * 3.2 - .3 * sm(.3, .74, t) - sai * 3.6;
+    const giro = (1 - entra) * Math.PI * 2 * lado + sai * Math.PI * 1.2 * -lado;
+    const balanço = reduzir ? 0 : Math.sin(tempo * .7) * .05;
+    const xBase = largo ? 1.3 : .28;
+    const x = lado * xBase * (0.55 + .45 * entra) + lado * sai * .5;
+    cel.rotation.set(-.08 + (1 - entra) * .5 - sai * .4 + balanço, -lado * .38 + giro, lado * (-.08 + (1 - entra) * .25 + sai * .3));
+    cel.position.set(x, (largo ? 0 : .55) + y + (reduzir ? 0 : Math.sin(tempo * .9) * .04), 0);
+    if (telaMat && carregadas[i] && telaMat.map !== carregadas[i]) { telaMat.map = carregadas[i]; telaMat.color.set(0xffffff); telaMat.needsUpdate = true; }
+    etapa.classList.toggle('dir', lado < 0);
+    cam.position.set(0, 0, largo ? 6.2 : 9.6); cam.lookAt(0, 0, 0);
+    renderer.render(cena, cam);
   }
-})();
+  requestAnimationFrame(loop);
+}
 </script>
 
 <section id="modulos">
