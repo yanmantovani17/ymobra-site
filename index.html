@@ -282,7 +282,7 @@ const ETAPAS = [
 const sec = document.getElementById('na-obra'), N = ETAPAS.length; sec.style.setProperty('--n', N);
 const fundos = sec.querySelector('.fundos'), etapa = sec.querySelector('.etapa'), ol = sec.querySelector('.lado ol');
 ETAPAS.forEach((e, i) => {
-  const f = document.createElement('div'); f.className = 'fundo'; f.dataset.src = `obra/${e.fundo}.webp?v=2`; fundos.appendChild(f); e.f = f;
+  const f = document.createElement('div'); f.className = 'fundo'; f.dataset.src = `obra/${e.fundo}.webp?v=3`; fundos.appendChild(f); e.f = f;
   const d = document.createElement('div');
   d.innerHTML = `<div class="num">0${i + 1}</div><span class="modulo">${e.mod}</span><${e.abre ? 'h1' : 'h2'}>${e.t}</${e.abre ? 'h1' : 'h2'}><p>${e.p}</p>` + (e.abre ? '<div class="acoes"><a class="btn btn-ouro" href="#planos">Testar 7 dias grátis</a><a class="btn btn-vidro" href="#modulos">Ver o app por dentro</a></div><p class="nota-abre">Sem cartão para testar. Android, iPhone e computador.</p>' : '') + (e.cta ? '<div class="acoes"><a class="btn btn-ouro" href="#planos">Testar 7 dias grátis</a><a class="btn btn-vidro" href="#modulos">Ver o app por dentro</a></div>' : '');
   etapa.appendChild(d); e.d = d;
